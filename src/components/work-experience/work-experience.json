@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_work_experience_work_experiences",
+  "info": {
+    "displayName": "WorkExperience",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "date"
+    },
+    "end_date": {
+      "type": "date"
+    },
+    "roles": {
+      "displayName": "Roles",
+      "type": "component",
+      "repeatable": true,
+      "component": "roles.roles"
+    },
+    "description": {
+      "type": "text"
+    },
+    "location": {
+      "type": "string"
+    }
+  }
+}

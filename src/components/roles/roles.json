@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_roles_roles",
+  "info": {
+    "displayName": "Roles",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "department": {
+      "type": "string"
+    },
+    "project_url": {
+      "type": "string"
+    },
+    "tech_stack": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tech-stack.tech-stack"
+    },
+    "deparment_roles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::role-duty.role-duty"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_duties_duties",
+  "info": {
+    "displayName": "Duties"
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "text"
+    }
+  }
+}

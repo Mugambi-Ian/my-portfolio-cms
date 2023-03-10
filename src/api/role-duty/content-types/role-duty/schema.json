@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "role_duties",
+  "info": {
+    "singularName": "role-duty",
+    "pluralName": "role-duties",
+    "displayName": "DeparmentRoles",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "role": {
+      "type": "text"
+    },
+    "role_id": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_references_references",
+  "info": {
+    "displayName": "References",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}
