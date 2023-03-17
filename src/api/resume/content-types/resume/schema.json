@@ -10,29 +10,53 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "workExperience": {
       "displayName": "WorkExperience",
       "type": "component",
       "repeatable": true,
-      "component": "work-experience.work-experience"
+      "component": "work-experience.work-experience",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "references": {
       "type": "component",
       "repeatable": true,
-      "component": "references.references"
+      "component": "references.references",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "projects": {
       "type": "component",
       "repeatable": true,
-      "component": "projects.projects"
+      "component": "projects.projects",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "awards": {
       "displayName": "Awards",
       "type": "component",
       "repeatable": true,
-      "component": "awards.awards"
+      "component": "awards.awards",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
