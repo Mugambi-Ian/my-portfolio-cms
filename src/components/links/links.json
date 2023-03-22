@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_links_links",
+  "info": {
+    "displayName": "links",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "link": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "figma",
+        "repo",
+        "web"
+      ]
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}
