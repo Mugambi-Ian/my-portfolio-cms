@@ -1,12 +1,12 @@
-FROM ubuntu:18.04
-FROM node:16-alpine
-RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev yarn
+FROM ubuntu:22.04
+FROM node:18-alpine
+RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /opt/
 COPY ./package.json ./
 ENV PATH /opt/node_modules/.bin:$PATH
-RUN yarn
+RUN npm install
 WORKDIR /opt/app
 COPY ./ .
 RUN npm run build
