@@ -6,7 +6,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /opt/
 COPY ./package.json ./
 ENV PATH /opt/node_modules/.bin:$PATH
-RUN npm install
+RUN yarn
 WORKDIR /opt/app
 COPY ./ .
 RUN npm run build
