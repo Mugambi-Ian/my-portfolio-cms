@@ -9,6 +9,6 @@ ENV PATH /opt/node_modules/.bin:$PATH
 RUN yarn
 WORKDIR /opt/app
 COPY ./ .
-RUN npm run build
+RUN yarn build
 EXPOSE 1337
 CMD ["npm", "run", "start"]
