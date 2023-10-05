@@ -57,6 +57,17 @@
           "localized": true
         }
       }
+    },
+    "education": {
+      "displayName": "education",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "education.education"
     }
   }
 }

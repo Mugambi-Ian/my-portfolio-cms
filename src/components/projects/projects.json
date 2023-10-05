@@ -18,22 +18,14 @@
     "long_description": {
       "type": "text"
     },
-    "project_cover": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
     "links": {
       "displayName": "links",
       "type": "component",
       "repeatable": true,
       "component": "links.links"
+    },
+    "project_cover": {
+      "type": "string"
     }
   }
 }

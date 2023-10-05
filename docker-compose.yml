@@ -1,15 +1,15 @@
 
 version: '3'
 services:
-  strapi:
-    container_name: strapi
+  portfolio.cms:
+    container_name: portfolio.cms
     build: .
-    image: strapi:latest
+    image: portfolio.cms:latest
     restart: unless-stopped
     env_file: .env
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
-      DATABASE_HOST: strapiDB
+      DATABASE_HOST: portfolio.cmsDB
       DATABASE_PORT: ${DATABASE_PORT}
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USERNAME: ${DATABASE_USERNAME}
@@ -28,12 +28,5 @@ services:
     ports:
       - '1337:1337'
     networks:
-      - strapi
-  
-volumes:
-  strapi-data:
+      - portfolio-network
 
-networks:
-  strapi:
-    name: Strapi
-    driver: bridge
