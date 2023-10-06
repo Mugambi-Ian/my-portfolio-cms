@@ -6,7 +6,8 @@ RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev l
 
 COPY . .
 RUN yarn global add node-gyp
-RUN yarn config set network-timeout 600000 -g && yarn install
+RUN yarn config set network-timeout 600000 -g
+RUN yarn add --ignore-scripts=false --foreground-scripts
 ENV PATH /opt/app/node_modules/.bin:$PATH
 
 RUN yarn build
@@ -20,6 +21,8 @@ ENV NODE_ENV=${NODE_ENV}
 COPY --from=builder /opt/app/dist ./dist
 COPY --from=builder /opt/app/.env ./.env
 COPY --from=builder /opt/app/public ./public
+COPY --from=builder /opt/app/config ./config
+COPY --from=builder /opt/app/database ./database
 COPY --from=builder /opt/app/node_modules ./node_modules
 COPY --from=builder /opt/app/package.json ./package.json
 
