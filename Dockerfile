@@ -16,4 +16,4 @@ RUN chown -R node:node /opt/app
 USER node
 RUN ["yarn", "build"]
 EXPOSE 1337
-CMD ["yarn", "develop"]
+CMD ["yarn", "start"]
