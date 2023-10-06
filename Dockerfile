@@ -5,7 +5,7 @@ ENV NODE_ENV=${NODE_ENV}
 RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev
 
 COPY . .
-RUN yarn global 9i8 add node-gyp
+RUN yarn global add node-gyp
 RUN yarn config set network-timeout 600000 -g
 RUN yarn add --ignore-scripts=false --foreground-scripts
 ENV PATH /opt/app/node_modules/.bin:$PATH
