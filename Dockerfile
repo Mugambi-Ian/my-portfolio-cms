@@ -13,7 +13,7 @@ RUN yarn build
 FROM node:18-alpine AS runner
 WORKDIR /opt/app
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 COPY --from=builder /opt/app/dist ./dist
 COPY --from=builder /opt/app/.env ./.env
