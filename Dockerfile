@@ -1,6 +1,6 @@
 FROM ubuntu:22.04 AS deps
 WORKDIR /opt/app
-RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev
+RUN apt update && apt add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev
 COPY package.json yarn.lock ./
 RUN yarn
 
