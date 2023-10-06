@@ -1,5 +1,7 @@
 FROM node:18-alpine AS builder
 WORKDIR /opt/app
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
 RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev
 
 COPY . .
@@ -7,10 +9,6 @@ RUN yarn global add node-gyp
 RUN yarn config set network-timeout 600000 -g && yarn install
 ENV PATH /opt/app/node_modules/.bin:$PATH
 
-FROM node:18-alpine
-WORKDIR /opt/app
-ARG NODE_ENV=development
-ENV NODE_ENV=${NODE_ENV}
 RUN yarn build
 
 FROM node:18-alpine AS runner
