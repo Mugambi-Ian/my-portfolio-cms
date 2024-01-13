@@ -1,19 +1,29 @@
-FROM node:18-alpine
-# Installing libvips-dev for sharp Compatibility
-RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev git
-ARG NODE_ENV=development
-ENV NODE_ENV=${NODE_ENV}
+FROM ubuntu:latest
 
-WORKDIR /opt/
-COPY package.json yarn.lock ./
-RUN yarn global add node-gyp
-RUN yarn config set network-timeout 600000 -g && yarn install
-ENV PATH /opt/node_modules/.bin:$PATH
+RUN apt-get update && \
+    apt-get install -yq tzdata && \
+    ln -fs /usr/share/zoneinfo/Africa/Nairobi /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
+
+# Installing libvips-dev for sharp Compatibility
+RUN apt update && apt install build-essential gcc curl autoconf automake zlib1g libpng-dev nasm bash libvips-dev git cron -y
+
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+RUN apt install nodejs -y
 
 WORKDIR /opt/app
+
+COPY ./package.json ./package.json
+COPY ./yarn.lock ./yarn.lock
+RUN npm i -g yarn
+RUN yarn global add node-gyp
+RUN yarn config set network-timeout 600000 -g && yarn install
+ENV PATH /opt/app/node_modules/.bin:$PATH
+
 COPY . .
-RUN chown -R node:node /opt/app
-USER node
+
 RUN ["yarn", "build"]
 EXPOSE 1337
-CMD ["yarn", "start"]
+
+# Start cron and then the application
+CMD ["/bin/bash", "-c", "yarn start"]

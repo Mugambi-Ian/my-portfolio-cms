@@ -4,17 +4,19 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "develop": "strapi develop",
+    "build": "npm run clean && npm run strapi build",
+    "clean": "npx rimraf ./types",
+    "postclean": "npx rimraf ./dist",
+    "dev": "npm run clean && npm run strapi develop",
     "start": "strapi start",
-    "build": "strapi build",
     "strapi": "strapi"
   },
+
   "dependencies": {
-    "@strapi/plugin-graphql": "4.6.1",
-    "@strapi/plugin-i18n": "4.7.0",
-    "@strapi/plugin-users-permissions": "4.7.0",
-    "@strapi/strapi": "4.13.6",
-    "better-sqlite3": "7.4.6",
+    "@strapi/plugin-graphql": "4.15.5",
+    "@strapi/plugin-i18n": "4.15.4",
+    "@strapi/plugin-users-permissions": "4.15.4",
+    "@strapi/strapi": "4.15.4",
     "pg": "8.8.0"
   },
   "author": {
