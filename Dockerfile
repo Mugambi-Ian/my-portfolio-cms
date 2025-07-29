@@ -1,29 +1,53 @@
-FROM ubuntu:latest
+# syntax=docker/dockerfile:1
 
-RUN apt-get update && \
-    apt-get install -yq tzdata && \
-    ln -fs /usr/share/zoneinfo/Africa/Nairobi /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata
+# =========================
+# 1️⃣ Build Stage
+# =========================
+FROM node:20-alpine AS builder
 
-# Installing libvips-dev for sharp Compatibility
-RUN apt update && apt install build-essential gcc curl autoconf automake zlib1g libpng-dev nasm bash libvips-dev git cron -y
+# Install necessary dependencies for native modules
+RUN apk add --no-cache python3 make g++ libc6-compat
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-RUN apt install nodejs -y
+WORKDIR /app
 
-WORKDIR /opt/app
+# Install node-gyp globally to avoid native module issues
+RUN npm install -g node-gyp
 
-COPY ./package.json ./package.json
-COPY ./yarn.lock ./yarn.lock
-RUN npm i -g yarn
-RUN yarn global add node-gyp
-RUN yarn config set network-timeout 600000 -g && yarn install
-ENV PATH /opt/app/node_modules/.bin:$PATH
+# Copy necessary files for dependency installation
+COPY package.json package-lock.json ./
 
+# Install dependencies (production & dev)
+RUN npm ci
+
+# Copy entire project (except files in .dockerignore)
 COPY . .
 
-RUN ["yarn", "build"]
+# Build the Strapi admin panel
+RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
+
+# =========================
+# 2️⃣ Production Image
+# =========================
+FROM node:22-alpine AS production
+
+# Install runtime dependencies
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
+
+# Copy only production node_modules and built app
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/.env ./.env
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/config ./config
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/database ./database
+COPY --from=builder /app/tsconfig.json ./tsconfig.json
+
+ENV NODE_ENV=production
 EXPOSE 1337
 
-# Start cron and then the application
-CMD ["/bin/bash", "-c", "yarn start"]
+# Start Strapi in production mode
+CMD ["npm", "run", "start"]
